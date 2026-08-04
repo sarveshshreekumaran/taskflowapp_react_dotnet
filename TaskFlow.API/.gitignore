@@ -1,0 +1,22 @@
+# Build output & compiled binaries
+bin/
+obj/
+
+# User-specific settings & IDE state
+.vs/
+.vscode/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Environment-specific configuration files containing secrets
+appsettings.json
+appsettings.Development.json
+appsettings.Production.json
+
+# Test results
+[Tt]est[Rr]esults/
+
+# Publish output
+publish/

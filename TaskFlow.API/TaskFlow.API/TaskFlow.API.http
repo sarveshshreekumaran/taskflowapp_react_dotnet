@@ -1,0 +1,65 @@
+@TaskFlow.API_HostAddress = http://localhost:5214
+
+### 1. Create a New Task (POST Request)
+POST {{TaskFlow.API_HostAddress}}/api/tasks
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6ImRldmVsb3BlckB0YXNrZmxvdy5jb20iLCJuYW1laWQiOiIxIiwibmJmIjoxNzgzNzM0OTg4LCJleHAiOjE3ODQzMzk3ODgsImlhdCI6MTc4MzczNDk4OCwiaXNzIjoiVGFza0Zsb3dBUEkiLCJhdWQiOiJUYXNrRmxvd1JlYWN0Q2xpZW50In0.rQVZ2O3WgPA-idwUzUKU7aJOmkb99Gfly7UArRAHxL4
+Content-Type: application/json
+
+{
+  "title": "Master .NET 10 HTTP Client",
+  "description": "Learn to test APIs without heavy Swagger UI dependencies",
+  "isCompleted": false,
+  "dueDate": "2026-06-01T00:00:00Z"
+}
+
+###
+
+### 2. Get All Tasks (GET Request)
+GET {{TaskFlow.API_HostAddress}}/api/tasks
+Cookie: taskflow_session=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6ImRldmVsb3BlckB0YXNrZmxvdy5jb20iLCJuYW1laWQiOiIxIiwibmJmIjoxNzg0Mzc0MjQ2LCJleHAiOjE3ODQ5NzkwNDYsImlhdCI6MTc4NDM3NDI0NiwiaXNzIjoiVGFza0Zsb3dBUEkiLCJhdWQiOiJUYXNrRmxvd1JlYWN0Q2xpZW50In0.74KGiKb_tbByhDt3eOrz6W24CH_3RbEtxON-Boe7weU
+Content-Type: application/json
+
+###
+
+### 3. Update Task (PUT - Modify the ID matching your database row)
+PUT {{TaskFlow.API_HostAddress}}/api/tasks/1
+Content-Type: application/json
+
+{
+  "title": "Completed Task Architecture",
+  "description": "This has been successfully modified!",
+  "isCompleted": true
+}
+
+###
+
+### 4. Delete Task (DELETE)
+DELETE {{TaskFlow.API_HostAddress}}/api/tasks/1
+
+###
+
+### 5. Register a New User
+POST {{TaskFlow.API_HostAddress}}/api/auth/register
+Content-Type: application/json
+
+{
+  "email": "developer@taskflow.com",
+  "password": "SecurePassword123"
+}
+
+###
+
+### 6. Login and Retrieve JWT Token
+POST {{TaskFlow.API_HostAddress}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "developer@taskflow.com",
+  "password": "SecurePassword123"
+}
+
+### 7. Get  (GET Request)
+GET {{TaskFlow.API_HostAddress}}/api/auth/me
+Accept: application/json
+
+###
