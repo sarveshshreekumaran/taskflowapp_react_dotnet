@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TaskFlow.Core.DTOs;
@@ -11,10 +13,12 @@ namespace TaskFlow.API.Controllers
     public class AuthController : ControllerBase
     {
         private readonly IAuthService _authService;
+        private readonly IWebHostEnvironment _env;
 
-        public AuthController(IAuthService authService)
+        public AuthController(IAuthService authService, IWebHostEnvironment env)
         {
             _authService = authService;
+            _env = env;
         }
 
         [HttpPost("register")]
@@ -33,7 +37,7 @@ namespace TaskFlow.API.Controllers
 
             if (token == null) return Unauthorized("Invalid email or password");
 
-            var isProduction = builder.Environment.IsProduction();
+            var isProduction = _env.IsProduction();
 
             var cookieOption = new CookieOptions
             {
