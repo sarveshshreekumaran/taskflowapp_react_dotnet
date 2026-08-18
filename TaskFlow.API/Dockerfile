@@ -11,7 +11,7 @@ COPY . .
 RUN dotnet publish "TaskFlow.API.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 # Stage 2: Runtimw
-From mcr.microsoft.com/dptnet/aspnet:10.0 AS final
+From mcr.microsoft.com/dotnet/aspnet:10.0 AS final
 WORKDIR /app
 COPY --from=build /app/publish .
 
