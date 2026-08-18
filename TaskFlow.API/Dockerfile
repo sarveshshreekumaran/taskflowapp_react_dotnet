@@ -1,22 +1,22 @@
 # Stage 1: Build
-From mcr.microsoft.com/dptnet/sdk:10.0 AS Build
+FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 WORKDIR /src
 
-#Copy csproj and restore dependencies
+# Copy csproj and restore dependencies
 COPY ["TaskFlow.API.csproj", "./"]
 RUN dotnet restore "TaskFlow.API.csproj"
 
-#Copy everyting else and build
+# Copy everything else and build
 COPY . .
 RUN dotnet publish "TaskFlow.API.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
-# Stage 2: Runtimw
-From mcr.microsoft.com/dotnet/aspnet:10.0 AS final
+# Stage 2: Runtime
+FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS final
 WORKDIR /app
 COPY --from=build /app/publish .
 
-# Render exposes a dynamic PORT environment variable (default 8080)
-ENV ASPNETCORE_URLS=http://+:8000
-EXPOSE 8000
+# Bind ASP.NET Core to port 8080 for Render
+ENV ASPNETCORE_URLS=http://+:8080
+EXPOSE 8080
 
 ENTRYPOINT ["dotnet", "TaskFlow.API.dll"]
